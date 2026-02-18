@@ -37,6 +37,8 @@ app.use('/api/freeze', freezeRoutes);
 
 
 
+
+
 /**
  * ❌ Booking APIs intentionally NOT mounted
  * (Deprecated – subscription owns everything)
