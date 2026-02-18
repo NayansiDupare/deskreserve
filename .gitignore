@@ -1,0 +1,10 @@
+# Backend
+deskreserve-backend/node_modules/
+deskreserve-backend/.env
+deskreserve-backend/credentials.json
+
+
+# Flutter
+deskreserve-app/build/
+deskreserve-app/.dart_tool/
+deskreserve-app/.packages
