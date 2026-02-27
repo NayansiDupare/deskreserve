@@ -10,12 +10,7 @@ class BookingService {
     required String date,
     required String slot,
   }) async {
-    final body = {
-      "seat": seat,
-      "date": date,
-      "slot": slot,
-      if (email != null) "email": email,
-    };
+    final body = {"seat": seat, "date": date, "slot": slot, "email": ?email};
 
     await ApiClient.post('/seats/book-slot', body);
   }

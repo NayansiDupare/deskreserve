@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import '../services/booking_service.dart';
-import '../screens/student_list_screen.dart';
 
 class ConfirmChangeSeatScreen extends StatelessWidget {
   final String email;

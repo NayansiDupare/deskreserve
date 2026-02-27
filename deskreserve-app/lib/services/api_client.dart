@@ -1,10 +1,9 @@
 import 'dart:convert';
-import 'dart:io';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ApiClient {
-  static const String baseUrl = "http://localhost:5000/api";
+  static const String baseUrl = "https://deskreserve.onrender.com/api";
 
   /// Headers with token
   static Future<Map<String, String>> _headers() async {
@@ -33,6 +32,19 @@ class ApiClient {
       throw Exception("Unexpected server response");
     }
   }
+
+  /*static dynamic _handleResponse(http.Response res) {
+    print("STATUS: ${res.statusCode}");
+    print("BODY: ${res.body}");
+
+    final body = jsonDecode(res.body);
+
+    if (res.statusCode >= 200 && res.statusCode < 300) {
+      return body;
+    }
+
+    throw Exception(body['error'] ?? body['message'] ?? 'Something went wrong');
+  }*/
 
   /// GET
   static Future<dynamic> get(String endpoint) async {
@@ -84,22 +96,5 @@ class ApiClient {
     );
 
     return _handleResponse(res);
-  }
-
-  /// ✅ IMAGE UPLOAD (MULTIPART)
-  static Future<dynamic> uploadImage(String endpoint, File file) async {
-    final request = http.MultipartRequest(
-      'POST',
-      Uri.parse("$baseUrl$endpoint"),
-    );
-
-    request.headers.addAll(await _headers());
-
-    request.files.add(await http.MultipartFile.fromPath('file', file.path));
-
-    final streamedResponse = await request.send();
-    final response = await http.Response.fromStream(streamedResponse);
-
-    return _handleResponse(response);
   }
 }

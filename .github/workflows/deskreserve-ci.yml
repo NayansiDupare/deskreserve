@@ -1,0 +1,61 @@
+name: DeskReserve CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+
+  flutter-app:
+    name: Flutter App CI
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: deskreserve-app
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: "3.38.7"
+
+      - name: Install dependencies
+        run: flutter pub get
+
+      - name: Analyze project
+        run: flutter analyze
+
+      - name: Run tests
+        run: flutter test
+
+  backend:
+    name: Backend CI
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: deskreserve-backend
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run lint (if available)
+        run: npm run lint --if-present
+
+      - name: Run tests (if available)
+        run: npm test --if-present

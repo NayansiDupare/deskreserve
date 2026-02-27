@@ -91,8 +91,9 @@ class _SeatSelectionScreenState extends State<SeatSelectionScreen> {
   bool get isSeatChangeLimitReached {
     if (widget.mode != SeatScreenMode.changeSeat) return false;
 
-    if (widget.seatChangeAllowed == null || widget.seatChangeUsed == null)
+    if (widget.seatChangeAllowed == null || widget.seatChangeUsed == null) {
       return false;
+    }
 
     return widget.seatChangeUsed! >= widget.seatChangeAllowed!;
   }
@@ -112,7 +113,7 @@ class _SeatSelectionScreenState extends State<SeatSelectionScreen> {
                 Padding(
                   padding: const EdgeInsets.all(16),
                   child: DropdownButtonFormField<String>(
-                    value: selectedSlot,
+                    initialValue: selectedSlot,
                     decoration: const InputDecoration(
                       labelText: "Select Slot",
                       border: OutlineInputBorder(),
